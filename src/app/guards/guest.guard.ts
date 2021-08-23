@@ -8,13 +8,15 @@ import { SupabaseService } from '../services/supabase.service';
 export class GuestGuard implements CanActivate {
   constructor(private readonly supabase: SupabaseService, private readonly router: Router) { }
 
-  canActivate(): boolean {
-    const isSignedIn = !!this.supabase.getUser();
+  canActivate(): Promise<boolean> {
+    return new Promise((resolve) => setTimeout(() => {
+      const isSignedIn = !!this.supabase.getSession()?.user
 
-    if (isSignedIn) {
-      this.router.navigate(['/'])
-    }
+      if (isSignedIn) {
+        this.router.navigate(['/'])
+      }
 
-    return true;
+      resolve(true);
+    }, 500));
   }
 }

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router'
 import { AuthComponent } from './components/auth/auth.component'
 import { HomeComponent } from './components/home/home.component'
 import { AuthGuard } from './guards/auth.guard'
+import { GuestGuard } from './guards/guest.guard'
 import { RecoveryPasswordGuard } from './guards/recovery-password.guard'
 import { RecoveryPasswordComponent } from './components/recovery-password/recovery-password.component'
 
@@ -15,6 +16,7 @@ const routes: Routes = [
   {
     path: 'auth',
     component: AuthComponent,
+    canActivate: [GuestGuard],
   },
   {
     path: 'recovery-password',
@@ -26,4 +28,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -9,7 +9,7 @@ export class GuestGuard implements CanActivate {
   constructor(private readonly supabase: SupabaseService, private readonly router: Router) { }
 
   canActivate(): boolean {
-    const isSignedIn = !!this.supabase.getSession()?.user
+    const isSignedIn = !!this.supabase.getUser();
 
     if (isSignedIn) {
       this.router.navigate(['/'])

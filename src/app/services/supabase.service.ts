@@ -5,6 +5,7 @@ import {
   Provider,
   Session,
   SupabaseClient,
+  User,
 } from '@supabase/supabase-js'
 import { environment } from '../../environments/environment'
 
@@ -17,6 +18,10 @@ export class SupabaseService {
 
   constructor() {
     this.supabaseClient = createClient(environment.supabaseUrl, environment.supabaseKey)
+  }
+
+  getUser(): User | null {
+    return this.supabaseClient.auth.user();
   }
 
   getSession(): Session | null {

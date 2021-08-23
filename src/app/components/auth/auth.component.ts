@@ -21,7 +21,7 @@ export class AuthComponent {
 
   helperText: HelperText | undefined
 
-  constructor(private readonly supabase: SupabaseService, private readonly router: Router) {}
+  constructor(private readonly supabase: SupabaseService, private readonly router: Router) { }
 
   async forgotPassword(): Promise<void> {
     const email = prompt('Please enter your email:')
@@ -60,7 +60,11 @@ export class AuthComponent {
   async handleOAuthLogin(provider: Provider): Promise<void> {
     // You need to enable the third party auth you want in Authentication > Settings
     // Read more on: https://supabase.io/docs/guides/auth#third-party-logins
-    let { error } = await this.supabase.signInWithProvider(provider)
-    if (error) console.error('Error: ', error.message)
+    let { error } = await this.supabase.signInWithProvider(provider);
+    if (error) {
+      console.error('Error: ', error.message)
+    } else {
+      await this.router.navigate(['/']);
+    }
   }
 }
